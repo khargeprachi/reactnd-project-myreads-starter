@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 class BookList extends Component {
 
 
-handleChange(value,book) {
-//{(event) => this.props.change(event.target.value,book)}
-//e.preventDefault()
-//console.log(book)
-this.props.change(value,book)
-
-}
+  static propTypes = {
+      books: PropTypes.array.isRequired,
+      change: PropTypes.func.isRequired
+    }
 
   render () {
     console.log(this.props.books)
