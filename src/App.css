@@ -127,13 +127,16 @@ body, .app {
   width: 140px;
 }
 .book-title,
-.book-authors {
+.book-authors,.book-ratings {
   font-size: 0.8em;
 }
 .book-title {
   margin-top: 10px;
   color:teal;
   font-weight:bold;
+}
+.book-ratings {
+  color: black;
 }
 .book-authors {
   color: black;

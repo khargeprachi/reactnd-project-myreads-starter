@@ -45,6 +45,14 @@ this.props.change(value,book)
                         ))
                         }
                       </div>
+                      {book.ratingsCount && (
+                        <div className="book-ratings">Ratings: {book.ratingsCount}</div>
+                      )
+                      }
+                      {!book.ratingsCount && (
+                        <div className="book-ratings">Ratings: Nil </div>
+                      )
+                      }
                     </li>
                     ))
                   }
@@ -79,6 +87,14 @@ this.props.change(value,book)
                         ))
                         }
                       </div>
+                      {book.ratingsCount && (
+                        <div className="book-ratings">Ratings: {book.ratingsCount}</div>
+                      )
+                      }
+                      {!book.ratingsCount && (
+                        <div className="book-ratings">Ratings: Nil </div>
+                      )
+                      }
                     </li>
                     ))
                   }
@@ -112,6 +128,14 @@ this.props.change(value,book)
                         ))
                         }
                       </div>
+                      {book.ratingsCount && (
+                        <div className="book-ratings">Ratings: {book.ratingsCount}</div>
+                      )
+                      }
+                      {!book.ratingsCount && (
+                        <div className="book-ratings">Ratings: Nil</div>
+                      )
+                      }
                     </li>
                     ))
                   }

@@ -64,6 +64,14 @@ return (
               ))
               }
             </div>
+            {book.ratingsCount && (
+              <div className="book-ratings">Ratings: {book.ratingsCount}</div>
+            )
+            }
+            {!book.ratingsCount && (
+              <div className="book-ratings">Ratings: Nil </div>
+            )
+            }
           </li>
         ))
       }
