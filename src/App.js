@@ -1,21 +1,62 @@
-import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import React , {Component} from 'react'
+ import * as BooksAPI from './BooksAPI.js'
 import './App.css'
+import {BrowserRouter} from 'react-router-dom'
+import {Route} from 'react-router-dom'
+import BookList from './BookList'
+import SearchBook from './SearchBook'
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
+    books:[]
   }
 
+      componentDidMount() {
+      BooksAPI.getAll().then((books)=>{
+    /*  books.forEach((book)=> (
+        book.shelf:'currently reading'
+      ))
+*/      this.setState({books:books})
+
+    })
+  }
+  change=(value,book) => {
+
+  BooksAPI.update(book,value).then(()=> {
+    book.shelf=value
+    this.setState(state=>({
+      books:state.books.filter((b)=> b.id!=book.id).concat([book])
+
+    })
+    )
+
+//console.log(book)
+  })
+
+  }
   render() {
     return (
       <div className="app">
+
+        <Route exact path='/' render={ () => (
+
+          <BookList books={this.state.books} change={this.change}/>
+        )
+        }
+        />
+        <Route path='/search' render= { () => (
+          <SearchBook books={this.state.books} change={this.change}> </SearchBook>
+        )
+        }
+        />
+      </div>
+
+
+
+
+
+/*
+
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
@@ -28,7 +69,8 @@ class BooksApp extends React.Component {
 
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
-                */}
+                }*/
+                /*
                 <input type="text" placeholder="Search by title or author"/>
 
               </div>
@@ -80,7 +122,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Ender's Game</div>
+                          <div className="book-title">Enders Game</div>
                           <div className="book-authors">Orson Scott Card</div>
                         </div>
                       </li>
@@ -123,7 +165,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Harry Potter and the Sorcerer's Stone</div>
+                          <div className="book-title">Harry Potter and the Sorcerers Stone</div>
                           <div className="book-authors">J.K. Rowling</div>
                         </div>
                       </li>
@@ -166,7 +208,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Oh, the Places You'll Go!</div>
+                          <div className="book-title">Oh, the Places Youll Go!</div>
                           <div className="book-authors">Seuss</div>
                         </div>
                       </li>
@@ -199,6 +241,7 @@ class BooksApp extends React.Component {
           </div>
         )}
       </div>
+      */
     )
   }
 }
