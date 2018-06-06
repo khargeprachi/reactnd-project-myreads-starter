@@ -13,10 +13,7 @@ class BooksApp extends Component {
 
       componentDidMount() {
       BooksAPI.getAll().then((books)=>{
-    /*  books.forEach((book)=> (
-        book.shelf:'currently reading'
-      ))
-*/      this.setState({books:books})
+        this.setState({books:books})
 
     })
   }
