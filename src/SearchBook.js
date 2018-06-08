@@ -12,7 +12,8 @@ static propTypes = {
     change: PropTypes.func.isRequired
   }
 state= {
-    query: ''
+    query: '',
+    showBooks:[]
 
 
 }
@@ -27,26 +28,28 @@ this.setState({query:query})
 clearQuery = () => {
   this.setState( {query:''})
 }
-handleSearch(query) {
-  let showBooks=[]
+handleSearch=(query)=> {
+
   BooksAPI.search(this.state.query).then((searchResult)=> {
 
-  showBooks=searchResult
-  showBooks.sort(sortBy('title'))
-  console.log(showBooks.length)
-return showBooks
+//  showBooks=searchResult
+  //showBooks.sort(sortBy('title'))
+
+  this.setState({showBooks:searchResult})
+
   }).catch(()=> console.log("error"))
-  
+
 }
 render () {
 let showBooks
 {this.state.query!=='' && (
-showBooks=this.handleSearch(this.state.query)
+this.handleSearch(this.state.query)
 
 )}
 {this.state.query==='' && (
    showBooks=[]
 )}
+//{console.log(this.state.showBooks.length)}
 
   return (
     <div className="search-books">
@@ -62,16 +65,16 @@ showBooks=this.handleSearch(this.state.query)
       </div>
 
 
-      {showBooks.length>=1 && (
+      {this.state.showBooks.length>=1 && (
       <div className="search-books-results">
         <ol className="books-grid">
         {
-          showBooks.map((b)=> (
+          this.state.showBooks.map((b)=> (
             <li key={b.id}>
 
               <div className="book">
                 <div className="book-top">
-                  //<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})`}}></div>
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})`}}></div>
                   <div className="book-shelf-changer">
                     <select  defaultValue={b.shelf} onChange={(event) => this.props.change(event.target.value,b.clone())}>
                       <option value="none" disabled>Move to...</option>
