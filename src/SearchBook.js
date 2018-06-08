@@ -10,13 +10,13 @@ static propTypes = {
     books: PropTypes.array.isRequired,
     change: PropTypes.func.isRequired
   }
-state= {
+/*state= {
     query: '',
     showBooks:[]
 
 
 }
-
+*/
 
 
 
