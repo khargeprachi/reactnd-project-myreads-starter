@@ -34,9 +34,9 @@ handleSearch(query) {
   showBooks=searchResult
   showBooks.sort(sortBy('title'))
   console.log(showBooks.length)
-
+return showBooks
   }).catch(()=> console.log("error"))
-  return showBooks
+  
 }
 render () {
 let showBooks
