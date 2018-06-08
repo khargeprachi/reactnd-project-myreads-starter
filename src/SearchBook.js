@@ -26,7 +26,7 @@ this.setState({query:query})
 handleSearch=(query)=> {
 if(query) {
   BooksAPI.search(query).then((searchResult)=> {
-    console.log(searchResult)
+    
     if(searchResult) {
       this.setState({showBooks:searchResult.sort(sortBy('title'))})
 }
