@@ -37,9 +37,15 @@ handleSearch=(query)=> {
 
   this.setState({showBooks:searchResult})
 
-  }).catch(()=> console.log("error"))
+}).catch(()=> this.setState({showBooks:[]}))
 
 }
+
+shouldComponentUpdate(nextProps, nextState) {
+
+   return this.state.query !== nextState.query || this.state.showBooks!==nextState.showBooks;
+}
+
 render () {
 let showBooks
 {this.state.query!=='' && (
