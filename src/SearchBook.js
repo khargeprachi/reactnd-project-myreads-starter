@@ -29,16 +29,20 @@ clearQuery = () => {
   this.setState( {query:''})
 }
 handleSearch=(query)=> {
-
-  BooksAPI.search(this.state.query).then((searchResult)=> {
+if(query!='') {
+  BooksAPI.search(query).then((searchResult)=> {
 
 //  showBooks=searchResult
   //showBooks.sort(sortBy('title'))
-
+  if(searchResult) {
   this.setState({showBooks:searchResult})
+}
 
 }).catch(()=> this.setState({showBooks:[]}))
+}
+else {
 
+}
 }
 
 shouldComponentUpdate(nextProps, nextState) {
@@ -48,15 +52,17 @@ shouldComponentUpdate(nextProps, nextState) {
 
 render () {
 let showBooks
-{this.state.query!=='' && (
+/*{this.state.query!=='' && (
 this.handleSearch(this.state.query)
 
 )}
 {this.state.query==='' && (
    showBooks=[]
 )}
+*/
 //{console.log(this.state.showBooks.length)}
 
+this.handleSearch(this.state.query)
   return (
     <div className="search-books">
 
@@ -80,7 +86,9 @@ this.handleSearch(this.state.query)
 
               <div className="book">
                 <div className="book-top">
+                {b.imageLinks && (
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})`}}></div>
+                  )}
                   <div className="book-shelf-changer">
                     <select  defaultValue={b.shelf} onChange={(event) => this.props.change(event.target.value,b.clone())}>
                       <option value="none" disabled>Move to...</option>
@@ -92,10 +100,10 @@ this.handleSearch(this.state.query)
                   </div>
                 </div>
                 <div className="book-title">{b.title}</div>
-                {  b.authors.map((author)=> (
+                {b.authors && (  b.authors.map((author)=> (
                   <div className="book-authors" key={author}>{author}</div>
                 ))
-                }
+              )}
               </div>
               {b.ratingsCount && (
                 <div className="book-ratings">Ratings: {b.ratingsCount}</div>
