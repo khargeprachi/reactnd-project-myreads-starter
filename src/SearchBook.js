@@ -1,7 +1,6 @@
 import React , {Component} from 'react'
 import {Link} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI.js'
-import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import PropTypes from 'prop-types'
 
@@ -20,28 +19,19 @@ state= {
 
 updateQuery=(query)=>{
 
-//  result=this.props.handleSearch(query)
-//
 this.setState({query:query})
 
 }
-clearQuery = () => {
-  this.setState( {query:''})
-}
-handleSearch=(query)=> {
-if(query!='') {
-  BooksAPI.search(query).then((searchResult)=> {
 
-//  showBooks=searchResult
-  //showBooks.sort(sortBy('title'))
-  if(searchResult) {
-  this.setState({showBooks:searchResult})
+handleSearch=(query)=> {
+if(query) {
+  BooksAPI.search(query).then((searchResult)=> {
+    console.log(searchResult)
+    if(searchResult) {
+      this.setState({showBooks:searchResult.sort(sortBy('title'))})
 }
 
 }).catch(()=> this.setState({showBooks:[]}))
-}
-else {
-
 }
 }
 
@@ -51,18 +41,9 @@ shouldComponentUpdate(nextProps, nextState) {
 }
 
 render () {
-let showBooks
-/*{this.state.query!=='' && (
-this.handleSearch(this.state.query)
-
-)}
-{this.state.query==='' && (
-   showBooks=[]
-)}
-*/
-//{console.log(this.state.showBooks.length)}
 
 this.handleSearch(this.state.query)
+
   return (
     <div className="search-books">
 
@@ -90,7 +71,7 @@ this.handleSearch(this.state.query)
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})`}}></div>
                   )}
                   <div className="book-shelf-changer">
-                    <select  defaultValue={b.shelf} onChange={(event) => this.props.change(event.target.value,b.clone())}>
+                    <select  defaultValue={b.shelf} onChange={(event) => this.props.change(event.target.value,b)}>
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading" checked >Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>

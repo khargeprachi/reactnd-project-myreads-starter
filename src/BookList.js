@@ -10,7 +10,6 @@ class BookList extends Component {
     }
 
   render () {
-    console.log(this.props.books)
     return (
         <div className="list-books">
           <div className="list-books-title">

@@ -1,19 +1,19 @@
 import React , {Component} from 'react'
- import * as BooksAPI from './BooksAPI.js'
-import './App.css'
-import {BrowserRouter} from 'react-router-dom'
 import {Route} from 'react-router-dom'
+import * as BooksAPI from './BooksAPI.js'
+import './App.css'
 import BookList from './BookList'
 import SearchBook from './SearchBook'
 
 class BooksApp extends Component {
   state = {
     books:[]
+
   }
 
       componentDidMount() {
       BooksAPI.getAll().then((books)=>{
-        this.setState({books:books})
+        this.setState({books})
 
     })
   }
@@ -22,15 +22,14 @@ class BooksApp extends Component {
   BooksAPI.update(book,value).then(()=> {
     book.shelf=value
     this.setState(state=>({
-      books:state.books.filter((b)=> b.id!=book.id).concat([book])
+      books:state.books.filter((b)=> b.id!==book.id).concat([book])
 
     })
     )
-
-//console.log(book)
   })
-
   }
+
+
   render() {
     return (
       <div className="app">
@@ -42,7 +41,7 @@ class BooksApp extends Component {
         }
         />
         <Route path='/search' render= { () => (
-          <SearchBook books={this.state.books} change={this.change}> </SearchBook>
+          <SearchBook books={this.state.books} change={this.change} handleSearch={this.handleSearch} > </SearchBook>
         )
         }
         />
