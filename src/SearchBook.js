@@ -17,32 +17,18 @@ state= {
 
 }
 
-updateQuery=(query)=>{
 
-this.setState({query:query})
 
-}
 
-handleSearch=(query)=> {
-if(query) {
-  BooksAPI.search(query).then((searchResult)=> {
-    
-    if(searchResult) {
-      this.setState({showBooks:searchResult.sort(sortBy('title'))})
-}
-
-}).catch(()=> this.setState({showBooks:[]}))
-}
-}
-
+/*
 shouldComponentUpdate(nextProps, nextState) {
 
    return this.state.query !== nextState.query || this.state.showBooks!==nextState.showBooks;
 }
-
+*/
 render () {
 
-this.handleSearch(this.state.query)
+this.props.handleSearch(this.props.query)
 
   return (
     <div className="search-books">
@@ -51,18 +37,18 @@ this.handleSearch(this.state.query)
         <Link className="close-search" to="/">Close</Link>
         <div className="search-books-input-wrapper">
           <input type="text" placeholder="Search by title or author"
-            value={this.state.query}
-            onChange={(event) => this.updateQuery(event.target.value)}
+            value={this.props.query}
+            onChange={(event) => this.props.updateQuery(event.target.value)}
           />
         </div>
       </div>
 
 
-      {this.state.showBooks.length>=1 && (
+      {this.props.showBooks.length>=1 && (
       <div className="search-books-results">
         <ol className="books-grid">
         {
-          this.state.showBooks.map((b)=> (
+          this.props.showBooks.map((b)=> (
             <li key={b.id}>
 
               <div className="book">
