@@ -29,6 +29,9 @@ class BookList extends Component {
 
                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                         ) }
+                        {!book.imageLinks && (
+                          <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
+                          )}
                           <div className="book-shelf-changer">
                             <select  defaultValue={book.shelf} onChange={(event) => this.props.change(event.target.value,book)}>
                               <option value="none" disabled>Move to...</option>
@@ -73,6 +76,9 @@ class BookList extends Component {
                         {book.imageLinks && (
                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                         )}
+                        {!book.imageLinks && (
+                          <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
+                          )}
                           <div className="book-shelf-changer">
                             <select defaultValue={book.shelf} onChange={(event) => this.props.change(event.target.value,book)}>
                               <option value="none" disabled>Move to...</option>
@@ -118,6 +124,9 @@ class BookList extends Component {
 
                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                         )}
+                        {!book.imageLinks && (
+                          <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
+                          )}
                           <div className="book-shelf-changer">
                             <select defaultValue={book.shelf} onChange={(event) => this.props.change(event.target.value,book)}>
                               <option value="none" disabled>Move to...</option>
@@ -153,6 +162,8 @@ class BookList extends Component {
           <div className="open-search">
           <Link
           to= '/search'
+          onClick={(event) => this.props.handleSearch(event)}
+          value=""
           > search
           </Link>
           </div>

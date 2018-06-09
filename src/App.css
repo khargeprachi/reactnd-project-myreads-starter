@@ -84,7 +84,9 @@ body, .app {
   border: none;
   outline: none;
 }
-
+.error-message {
+  text-align:center;
+}
 .close-search {
   display: block;
   top: 20px;
