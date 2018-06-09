@@ -50,7 +50,7 @@ const Result=({showBooks,change}) => {
 )
 
 }
-Result.propTypes = {
+Result.PropTypes = {
   showBooks: PropTypes.array.isRequired,
   change: PropTypes.func.isRequired
 
