@@ -1,174 +1,56 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Result from './result.js'
 class BookList extends Component {
 
 
   static propTypes = {
       books: PropTypes.array.isRequired,
-      change: PropTypes.func.isRequired
+      change: PropTypes.func.isRequired,
+      handleSearch: PropTypes.func.isRequired
     }
 
   render () {
     return (
-        <div className="list-books">
-          <div className="list-books-title">
-          <h1>MyReads</h1>
-          </div>
-          {/**** Currently Reading shelf****/}
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                  {
-                    this.props.books.filter((book)=> book.shelf==='currentlyReading').map((book)=> (
-                    <li key={book.title}>
-                      <div className="book">
-                        <div className="book-top">
-                        {book.imageLinks && (
-                          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                        ) }
-                        {!book.imageLinks && (
-                          <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
-                        )}
-                          <div className="book-shelf-changer">
-                            <select  defaultValue={book.shelf} onChange={(event) => this.props.change(event.target.value,book)}>
-                              <option value="none" disabled>Move to...</option>
-                              <option value="currentlyReading"  >Currently Reading</option>
-                              <option value="wantToRead">Want to Read</option>
-                              <option value="read">Read</option>
-                              <option value="none">None</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="book-title">{book.title}</div>
-                        {book.authors && (  book.authors.map((author)=> (
-                          <div className="book-authors" key={author}>{author}</div>
-                        )
-                        ))
-                        }
-                      </div>
-                      {book.ratingsCount && (
-                        <div className="book-ratings">Ratings: {book.ratingsCount}</div>
-                      )
-                      }
-                      {!book.ratingsCount && (
-                        <div className="book-ratings">Ratings: Nil </div>
-                      )
-                      }
-                    </li>
-                    ))
-                  }
-              </ol>
+            <div className="list-books">
+              <div className="list-books-title">
+              <h1>MyReads</h1>
+              </div>
+              {/**** Currently Reading shelf****/}
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Currently Reading</h2>
+                <div className="bookshelf-books">
+                <Result showBooks={this.props.books.filter((book)=> book.shelf==='currentlyReading')} change={this.props.change}/>
+                </div>
+              </div>
+              {/**** Want to Read shelf****/}
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Want To Read</h2>
+                <div className="bookshelf-books">
+                <Result showBooks={this.props.books.filter((book)=> book.shelf==='wantToRead')} change={this.props.change}/>
+                </div>
+              </div>
+              {/**** Read shelf****/}
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Read</h2>
+                <div className="bookshelf-books">
+                <Result showBooks={this.props.books.filter((book)=> book.shelf==='read')} change={this.props.change}/>
+                </div>
+              </div>
+
+
+              <div className="open-search">
+              <Link
+              to= '/search'
+              onClick={(event) => this.props.handleSearch(event)}
+              value=""
+              > search
+              </Link>
+              </div>
             </div>
-          </div>
-          {/**** Want to Read shelf****/}
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Want To Read</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                  {
-                    this.props.books.filter((book)=> book.shelf==='wantToRead').map((book)=> (
-                    <li key={book.title}>
-                      <div className="book">
-                        <div className="book-top">
-                        {book.imageLinks && (
-                          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                        )}
-                        {!book.imageLinks && (
-                          <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
-                          )}
-                          <div className="book-shelf-changer">
-                            <select defaultValue={book.shelf} onChange={(event) => this.props.change(event.target.value,book)}>
-                              <option value="none" disabled>Move to...</option>
-                              <option value="currentlyReading">Currently Reading</option>
-                              <option value="wantToRead">Want to Read</option>
-                              <option value="read">Read</option>
-                              <option value="none">None</option>
-                            </select>
-
-                          </div>
-                        </div>
-                        <div className="book-title">{book.title}</div>
-                        {book.authors && (  book.authors.map((author)=> (
-                          <div className="book-authors" key={author}>{author}</div>
-                        )))
-                        }
-                      </div>
-                      {book.ratingsCount && (
-                        <div className="book-ratings">Ratings: {book.ratingsCount}</div>
-                      )
-                      }
-                      {!book.ratingsCount && (
-                        <div className="book-ratings">Ratings: Nil </div>
-                      )
-                      }
-                    </li>
-                    ))
-                  }
-              </ol>
-            </div>
-          </div>
-          {/**** Read shelf****/}
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Read</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                  {
-                    this.props.books.filter((book)=> book.shelf==='read').map((book)=> (
-                    <li key={book.id}>
-                      <div className="book">
-                        <div className="book-top">
-                        {book.imageLinks && (
-
-                          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                        )}
-                        {!book.imageLinks && (
-                          <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
-                          )}
-                          <div className="book-shelf-changer">
-                            <select defaultValue={book.shelf} onChange={(event) => this.props.change(event.target.value,book)}>
-                              <option value="none" disabled>Move to...</option>
-                              <option value="currentlyReading" >Currently Reading</option>
-                              <option value="wantToRead">Want to Read</option>
-                              <option value="read">Read</option>
-                              <option value="none">None</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="book-title">{book.title}</div>
-                        { book.authors && ( book.authors.map((author)=> (
-                          <div className="book-authors" key={author}>{author}</div>
-                        )))
-                        }
-                      </div>
-                      {book.ratingsCount && (
-                        <div className="book-ratings">Ratings: {book.ratingsCount}</div>
-                      )
-                      }
-                      {!book.ratingsCount && (
-                        <div className="book-ratings">Ratings: Nil</div>
-                      )
-                      }
-                    </li>
-                    ))
-                  }
-              </ol>
-            </div>
-          </div>
-
-
-          <div className="open-search">
-          <Link
-          to= '/search'
-          onClick={(event) => this.props.handleSearch(event)}
-          value=""
-          > search
-          </Link>
-          </div>
-        </div>
-)
-}
+            )
+   }
 
 
  }
