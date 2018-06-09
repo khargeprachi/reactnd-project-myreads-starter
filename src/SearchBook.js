@@ -10,7 +10,6 @@ static propTypes = {
   }
 
 render () {
-
   return (
     <div className="search-books">
 
@@ -24,6 +23,7 @@ render () {
         </div>
       </div>
 
+      {console.log(this.props.showBooks)}
       {this.props.showBooks.length>=1 && (
       <div className="search-books-results">
         <ol className="books-grid">
@@ -39,6 +39,8 @@ render () {
                 {!b.imageLinks && (
                   <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
                   )}
+                  {console.log(b)}
+
 
                   <div className="book-shelf-changer">
                     <select  defaultValue={b.shelf} onChange={(event) => this.props.change(event.target.value,b)}>

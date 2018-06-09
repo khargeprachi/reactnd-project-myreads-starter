@@ -19,7 +19,7 @@ class BooksApp extends Component {
     })
   }
   change=(value,book) => {
-  BooksAPI.update(book,value).then(()=> {
+  BooksAPI.update(book,value).then((back)=> {{console.log(back)}
     book.shelf=value
     this.setState(state=>({
       books:state.books.filter((b)=> b.id!==book.id).concat([book]),
@@ -28,28 +28,59 @@ class BooksApp extends Component {
     )
   })
   }
+  /*
   handleSearch = (event) => {
        let query = event.target.value;
 
        if (query.length > 0) {
            BooksAPI.search(query).then((queryBooks) => {
                if (queryBooks instanceof Array) {
-                   queryBooks.forEach((book)=> {if(!book.shelf) {book.shelf="none"}})
+
                    this.setState({
                        showBooks: queryBooks.sort(sortBy('title'))
                    });
                } else {
                    this.setState({
-                       showBooks: []
+                      showBooks: []
                    });
                }
+               {console.log(this.state.showBooks)}
            }).catch(()=> {console.log("error")});
        } else {
            this.setState({
                showBooks: []
            });
        }
-   }
+   }*/
+   handleSearch = (event) => {
+        let query = event.target.value;
+
+        if (query.length > 0) {
+            BooksAPI.search(query).then((queryBooks) => {
+                if (queryBooks instanceof Array) {
+                  queryBooks.forEach((book,index)=>{
+                    BooksAPI.get(book.id).then((b)=>{
+                      queryBooks[index]=b
+                    })
+                  })
+                  {console.log(queryBooks)}
+                    this.setState({
+                        showBooks: queryBooks.sort(sortBy('title'))
+
+                    });
+                } else {
+                    this.setState({
+                       showBooks: []
+                    });
+                }
+            }).catch(()=> {console.log("error")});
+        } else {
+            this.setState({
+                showBooks: []
+            });
+        }
+    }
+
   render() {
     return (
       <div className="app">
