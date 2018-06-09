@@ -12,25 +12,22 @@ static propTypes = {
 render () {
   return (
     <div className="search-books">
-
       <div className="search-books-bar">
         <Link className="close-search" to="/">Close</Link>
         <div className="search-books-input-wrapper">
           <input type="text" placeholder="Search by title or author"
-            //value={this.props.query}
             onChange={(event) => this.props.handleSearch(event)}
           />
         </div>
       </div>
 
-      {console.log(this.props.showBooks)}
+
       {this.props.showBooks.length>=1 && (
       <div className="search-books-results">
         <ol className="books-grid">
         {
           this.props.showBooks.map((b)=> (
             <li key={b.id}>
-
               <div className="book">
                 <div className="book-top">
                 {b.imageLinks && (
@@ -39,8 +36,6 @@ render () {
                 {!b.imageLinks && (
                   <div className="book-cover" style={{ width: 128, height: 193 }}><h3 className="error-message">Image Unavailable</h3></div>
                   )}
-                  {console.log(b)}
-
 
                   <div className="book-shelf-changer">
                     <select  defaultValue={b.shelf} onChange={(event) => this.props.change(event.target.value,b)}>
