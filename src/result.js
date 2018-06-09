@@ -1,18 +1,13 @@
-import React , {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-class Result extends Component {
-  static propTypes = {
-      showBooks: PropTypes.array.isRequired,
-      change: PropTypes.func.isRequired
+const Result=({showBooks,change}) => {
 
-    }
-render () {
   return (
 
   <ol className="books-grid">
   {
-    this.props.showBooks.map((b)=> (
+    showBooks.map((b)=> (
       <li key={b.id}>
         <div className="book">
           <div className="book-top">
@@ -24,8 +19,8 @@ render () {
             )}
 
             <div className="book-shelf-changer">
-              <select  defaultValue={b.shelf} onChange={(event) => this.props.change(event.target.value,b)}>
-                <option value="none" disabled>Move to...</option>
+              <select  defaultValue={b.shelf} onChange={(event) => change(event.target.value,b)}>
+                <option value="default" disabled>Move to...</option>
                 <option value="currentlyReading" checked >Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
                 <option value="read">Read</option>
@@ -53,6 +48,11 @@ render () {
   </ol>
 
 )
+
 }
+Result.propTypes = {
+  showBooks: PropTypes.array.isRequired,
+  change: PropTypes.func.isRequired
+
 }
 export default Result

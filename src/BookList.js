@@ -1,49 +1,32 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Result from './result.js'
-class BookList extends Component {
+import Shelf from './shelf.js'
 
 
-  static propTypes = {
-      books: PropTypes.array.isRequired,
-      change: PropTypes.func.isRequired,
-      handleSearch: PropTypes.func.isRequired
-    }
+const BookList = ({books,change,handleSearch}) => {
 
-  render () {
     return (
             <div className="list-books">
               <div className="list-books-title">
               <h1>MyReads</h1>
               </div>
               {/**** Currently Reading shelf****/}
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
-                <div className="bookshelf-books">
-                <Result showBooks={this.props.books.filter((book)=> book.shelf==='currentlyReading')} change={this.props.change}/>
-                </div>
-              </div>
-              {/**** Want to Read shelf****/}
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Want To Read</h2>
-                <div className="bookshelf-books">
-                <Result showBooks={this.props.books.filter((book)=> book.shelf==='wantToRead')} change={this.props.change}/>
-                </div>
-              </div>
-              {/**** Read shelf****/}
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Read</h2>
-                <div className="bookshelf-books">
-                <Result showBooks={this.props.books.filter((book)=> book.shelf==='read')} change={this.props.change}/>
-                </div>
-              </div>
+                <Shelf showBooks={books.filter((book)=> book.shelf==='currentlyReading')} shelf='Currently Reading' change={change}/>
 
+
+              {/**** Want to Read shelf****/}
+
+              <Shelf showBooks={books.filter((book)=> book.shelf==='wantToRead')} shelf='Want To Read' change={change}/>
+
+
+              {/**** Read shelf****/}
+              <Shelf showBooks={books.filter((book)=> book.shelf==='read')} shelf='Read' change={change}/>
 
               <div className="open-search">
               <Link
               to= '/search'
-              onClick={(event) => this.props.handleSearch(event)}
+              onClick={(event) => handleSearch(event)}
               value=""
               > search
               </Link>
@@ -53,5 +36,10 @@ class BookList extends Component {
    }
 
 
- }
+
+ BookList.propTypes = {
+     books: PropTypes.array.isRequired,
+     change: PropTypes.func.isRequired,
+     handleSearch: PropTypes.func.isRequired
+   }
 export default BookList

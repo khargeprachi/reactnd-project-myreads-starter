@@ -1,37 +1,35 @@
-import React , {Component} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Result from './result.js'
-class SearchBook extends Component{
+const SearchBook=({showBooks,change,handleSearch})=>{
 
-static propTypes = {
-    showBooks: PropTypes.array.isRequired,
-    change: PropTypes.func.isRequired,
-    handleSearch: PropTypes.func.isRequired
-
-  }
-
-render () {
   return (
     <div className="search-books">
       <div className="search-books-bar">
         <Link className="close-search" to="/">Close</Link>
         <div className="search-books-input-wrapper">
           <input type="text" placeholder="Search by title or author"
-            onChange={(event) => this.props.handleSearch(event)}
+            onChange={(event) => handleSearch(event)}
           />
         </div>
       </div>
 
 
-      {this.props.showBooks.length>=1 && (
+      {showBooks.length>=1 && (
         <div className="search-books-results">
-        <Result showBooks={this.props.showBooks} change={this.props.change}/>
+        <Result showBooks={showBooks} change={change}/>
         </div>
 
       )}
     </div>
   )
  }
-}
+
+SearchBook.propTypes = {
+    showBooks: PropTypes.array.isRequired,
+    change: PropTypes.func.isRequired,
+    handleSearch: PropTypes.func.isRequired
+
+  }
 export default SearchBook
