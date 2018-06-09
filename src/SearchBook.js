@@ -26,7 +26,7 @@ const SearchBook=({showBooks,change,handleSearch})=>{
   )
  }
 
-SearchBook.PropTypes = {
+SearchBook.propTypes = {
     showBooks: PropTypes.array.isRequired,
     change: PropTypes.func.isRequired,
     handleSearch: PropTypes.func.isRequired

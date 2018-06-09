@@ -14,7 +14,7 @@ const Shelf=({showBooks,shelf,change})=> {
 
   }
 
-  Shelf.PropTypes= {
+  Shelf.propTypes= {
     showBooks: PropTypes.array.isRequired,
     change: PropTypes.func.isRequired,
     shelf:PropTypes.string.isRequired

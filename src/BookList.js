@@ -37,7 +37,7 @@ const BookList = ({books,change,handleSearch}) => {
 
 
 
- BookList.PropTypes = {
+ BookList.propTypes = {
      books: PropTypes.array.isRequired,
      change: PropTypes.func.isRequired,
      handleSearch: PropTypes.func.isRequired
